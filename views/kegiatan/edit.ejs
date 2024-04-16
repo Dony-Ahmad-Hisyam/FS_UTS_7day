@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom CSS */
+        body {
+            background-color: #fafafa;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #286bad;
+            padding-top: 0;
+            color: white;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            display: block;
+            color: #fff;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+        }
+
+        .login:hover {
+            background-color: #30f925 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <%- include('../sidebar.ejs', { userEmail: '' }) %>
+    <div
+        style="position: fixed; top: 1rem; right: 1rem; width: auto; text-align: center; z-index: 1; background-color: yellow; padding: 5px 10px; border-radius: 10px;">
+        <%= userEmail %>
+    </div>
+
+    <div class="content">
+        <h1>Selamat Datang di Halaman Kegiatan</h1>
+        <p>Halaman Edit Data Kegiatan</p>
+        <div class="container">
+            <% if (messages.success) { %>
+            <div class="alert alert-info" role="alert">
+                <%= messages.success %>
+            </div>
+            <% } %>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <form action="/kegiatan/update/<%=id%>" method="POST" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="nama" class="form-label">Nama</label>
+                                <input type="text" value="<%= nama %>" name="nama" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="gambar" class="form-label">Gambar</label>
+                                <input type="file" name="<%= gambar %>" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="tempat" class="form-label">Tempat</label>
+                                <input type="text" value="<%= tempat %>" name="tempat" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="tanggal" class="form-label">Tanggal</label>
+                                <input type="date" value="<%= tanggal %>" name="tanggal" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="deskripsi" class="form-label">Deskripsi</label>
+                                <textarea name="deskripsi" class="form-control"><%=deskripsi%></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
