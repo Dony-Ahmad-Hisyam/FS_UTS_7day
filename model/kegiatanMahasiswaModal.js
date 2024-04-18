@@ -78,6 +78,8 @@ class kegiatanMahasiswaModal {
       );
     });
   }
+
+  
 }
 
 module.exports = kegiatanMahasiswaModal;

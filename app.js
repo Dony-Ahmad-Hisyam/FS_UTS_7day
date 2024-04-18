@@ -15,6 +15,7 @@ var beritaRouter = require("./routes/berita");
 var kegiatanMahasiswaRouter = require("./routes/kegiatanMahasiswa");
 var loginMhs = require("./routes/loginMhs");
 var dasboardRouter = require("./routes/dashboard");
+var usersRouter = require("./routes/users");
 var app = express();
 
 app.set("views", path.join(__dirname, "views"));
@@ -52,6 +53,7 @@ app.use("/kegiatan", kegiatanRouter);
 app.use("/berita", beritaRouter);
 app.use("/kegiatan_mahasiswa", kegiatanMahasiswaRouter);
 app.use("/", loginMhs);
+app.use("/users", usersRouter);
 
 // Middleware untuk menangani kesalahan 404
 app.use(function (req, res, next) {

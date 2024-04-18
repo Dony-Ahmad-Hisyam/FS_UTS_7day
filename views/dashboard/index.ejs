@@ -142,7 +142,13 @@
             word-wrap: break-word;
             overflow-wrap: break-word;
             width: 100%;
-        }
+        }/* Tampilan tombol hover setelah mengikuti program */
+.already-followed:hover {
+    background-color: #ababab; /* Ubah warna latar belakang sesuai kebutuhan */
+    color: #ffffff; /* Ubah warna teks sesuai kebutuhan */
+    cursor: not-allowed; /* Ubah kursor menjadi not-allowed saat hover */
+}
+
     </style>
 </head>
 
@@ -296,15 +302,29 @@
                             </div>
                         </section>
                         <% if (userNama) { %>
-                        <form action="/ikutiProgram" method="post">
-                            <input type="hidden" name="kegiatan_id" value="<%= item.kegiatan_id %>">
-                            <input type="hidden" name="mahasiswa_id" value="<%= mahasiswa_id %>">
-                            <button type="submit" class="ikuti-program-btn" style="background-color: #ab2500;">
-                                Ikuti
-                                program</button>
-                        </form>
+                            <form action="/ikutiProgram" method="post" class="ikuti-program-form">
+                                <input type="hidden" name="mahasiswa_id" value="<%= mahasiswa_id %>">
+                                <% var sudahIkuti = false; %>
+                                <% for(var i = 0; i < data_kegiatan_ikuti.length; i++) { %>
+                                    <% if (data_kegiatan_ikuti[i].nama === item.nama && data_kegiatan_ikuti[i].mahasiswa_id === mahasiswa_id) { %>
+                                        <% sudahIkuti = true; %>
+                                        <div>
+                                            <%= item.nama_kegiatan %> (Anda sudah mengikuti kegiatan ini)
+                                        </div>
+                                        <% break; %>
+                                    <% } %>
+                                <% } %>
+                                <% if (!sudahIkuti) { %>
+                                    <input type="hidden" name="kegiatan_id" value="<%= item.kegiatan_id %>">
+                                    <button type="submit" class="ikuti-program-btn" style="background-color: #ab2500;" onclick="this.disabled=true; this.innerText='Mengikuti...'; this.form.submit();">
+                                        Ikuti Program
+                                    </button>
+                                <% } %>
+                            </form>
                         <% } %>
-
+                        
+                        
+                        
                     </div>
                 </div>
                 <% }) %>
@@ -404,6 +424,8 @@
                 });
             });
         </script>
+       
+        
 </body>
 
 </html>
